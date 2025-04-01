@@ -36,3 +36,20 @@ BEGIN
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trig_partida
+BEFORE INSERT ON partidas
+FOR EACH ROW
+EXECUTE FUNCTION gerar_id_partida();
+
+CREATE TRIGGER upd_arbitro
+AFTER INSERT ON partidas
+FOR EACH ROW
+EXECUTE FUNCTION atualizar_partidas_ap();
+
+
+CREATE TRIGGER trig_gol
+BEFORE INSERT ON gols
+FOR EACH ROW
+EXECUTE FUNCTION gerar_id_gol();
+
